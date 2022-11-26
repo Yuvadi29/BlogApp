@@ -2,7 +2,7 @@ import React from 'react';
 import './Navbar.css';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { GrTwitter } from 'react-icons/gr';
-import { CgProfile } from 'react-icons/cg';
+import profile from './profile.jpg';
 import { BsSearch } from 'react-icons/bs';
 
 const Navbar = () => {
@@ -26,10 +26,11 @@ const Navbar = () => {
       </div>
 
       <div className="navright">
-        <CgProfile
+        <img
+          src={profile}
           className='profileimage'
           alt="profileImage" />
-          
+
         <BsSearch className='searchicon' />
       </div>
 
