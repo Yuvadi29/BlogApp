@@ -7,7 +7,7 @@ const Post = () => {
         <div className='Post'>
             <img className='Postimg' src={Postimg} alt="pimg" />
 
-            <div className="PostDetail">
+            <div className="PostDetails">
                 <div className="PostCategories">
                     <span className="PostCategory">Music</span>
                     <span className="PostCategory">Art</span>
