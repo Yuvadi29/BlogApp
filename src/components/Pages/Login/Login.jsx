@@ -2,6 +2,7 @@ import React from 'react';
 import './Login.css';
 import { BsFacebook, BsTwitter, BsGithub, BsLinkedin } from 'react-icons/bs';
 import { AiOutlineUserAdd, AiOutlineRight } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     return (
@@ -15,7 +16,7 @@ const Login = () => {
                             <input type="password" placeholder='Password' />
                             <br />
                             <input type="checkbox" />
-                            <a href="#">Forgot Password ?</a>
+                            <a href="/ax">Forgot Password ?</a>
                             <button>Log in</button>
                             <hr />
                             <p>Or Connect With</p>
@@ -32,10 +33,12 @@ const Login = () => {
                     </div>
                     <div className="register">
                         <div className="container">
-                            <AiOutlineUserAdd className='RegIcon'/>
+                            <AiOutlineUserAdd className='RegIcon' />
                             <h2>Hello,friend!</h2>
                             <p>Enter your personal details and start journey with us</p>
-                            <button>Register <AiOutlineRight className='rightarrow'/></button>
+                            <Link to='/register'>
+                                <button>Register <AiOutlineRight className='rightarrow' /></button>
+                            </Link>
                         </div>
                     </div>
                 </div>
