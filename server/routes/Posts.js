@@ -86,7 +86,7 @@ router.get('/?user=', async (req, res) => {
                 }
             });
         } else {
-            posts = Post.find();
+            posts = await Post.find();
         }
         res.status(200).json(posts);
     } catch (error) {
