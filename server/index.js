@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 const authRoute = require('./routes/Auth');
 const userRoute = require('./routes/Users');
 const postRoute = require('./routes/Posts');
+const categoriesRoute = require('./routes/Categories');
+const { application } = require('express');
 //DotENV path
 
 dotenv.config();
@@ -20,6 +22,7 @@ mongoose.connect(process.env.MONGO_URL, {
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);
 app.use('/api/posts', postRoute);
+app.use('/api/categories', categoriesRoute);
 
 app.listen(port, () => {
     console.log(`Server is Running at port https://localhost:${port}`);
