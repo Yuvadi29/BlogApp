@@ -1,65 +1,65 @@
 // This Route is used for authentication 
 
 const router = require("express").Router();
-const User = require('../models/User.js');
+// const User = require('../models/User.js');
 const Post = require('../models/Post.js');
 
 //Create new post 
 //For Creating something use post, updating exisiting model use put , delete ke liye delete, fetch ke liye get
-router.post('/', async (req, res) => {
-    const newPost = new Post(req.body); //Sab innput lega
+router.post("/", async (req, res) => {
+    const newPost = new Post(req.body);
     try {
         const savedPost = await newPost.save();
         res.status(200).json(savedPost);
-    } catch (error) {
-        res.status(500).json(error);
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
-
 //Update Post
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id); //Find post
+        const post = await Post.findById(req.params.id); //Find Post
         if (post.username === req.body.username) {
             try {
-                const updatedPost = await Post.findByIdAndUpdate(req.params.id,
+                const updatedPost = await Post.findByIdAndUpdate(
+                    req.params.id,
                     {
                         $set: req.body,
                     },
                     { new: true }
                 );
                 res.status(200).json(updatedPost);
-            } catch (error) {
-                res.status(500).json(error);
+            } catch (err) {
+                res.status(500).json(err);
             }
+        } else {
+            res.status(401).json("You can update only your post!");
         }
-        else {
-            res.status(401).json("You can only UPDATE your post");
-        }
-    } catch (error) {
-        res.status(500).json(error);
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
 
+
 //Delete Post
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id); //Find post
+        const post = await Post.findById(req.params.id);
         if (post.username === req.body.username) {
             try {
                 await post.delete();
-                res.status(200).json("Post has been Deleted");
-            } catch (error) {
-                res.status(500).json(error);
+                res.status(200).json("Post has been deleted...");
+            } catch (err) {
+                res.status(500).json(err);
             }
+        } else {
+            res.status(401).json("You can delete only your post!");
         }
-        else {
-            res.status(401).json("You can only DELETE your post");
-        }
-    } catch (error) {
-        res.status(500).json(error);
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
+
 //Get Post
 router.get('/:id', async (req, res) => {
     try {
@@ -71,19 +71,19 @@ router.get('/:id', async (req, res) => {
 });
 
 //Get All Post
-router.get('/?user=', async (req, res) => {
+router.get('/', async (req, res) => {
     const username = req.query.user;
     const category = req.query.category;
 
     try {
         let posts;
         if (username) {
-            posts = await Post.find({ username: username });
+            posts = await Post.find({ username });
         } else if (category) {
             posts = await Post.find({
                 categories: {
-                    $in: [category]
-                }
+                    $in: [category],
+                },
             });
         } else {
             posts = await Post.find();

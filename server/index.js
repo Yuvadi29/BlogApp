@@ -1,16 +1,22 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
-const port = 5000;
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 const authRoute = require('./routes/Auth');
 const userRoute = require('./routes/Users');
 const postRoute = require('./routes/Posts');
 const categoriesRoute = require('./routes/Categories');
 const multer = require('multer');
+const cors = require('cors');
+const port = 5000;
 
 dotenv.config();
 app.use(express.json()); //Imp for testing of API
+
+//CORS stands for Cross-Origin Resource Sharing. It allows us to relax the security applied to an API. This is done by bypassing the Access-Control-Allow-Origin headers, which specify which origins can access the API. It is a browser security feature that restricts cross-origin HTTP requests with other servers and specifies which domains access your resources.
+app.use(cors({
+    origin: "*"
+}));    
 
 mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
@@ -38,5 +44,5 @@ app.use('/api/posts', postRoute);
 app.use('/api/categories', categoriesRoute);
 
 app.listen(port, () => {
-    console.log(`Server is Running at port https://localhost:${port}`);
+    console.log(`Server is Running at port http://localhost:${port}`);
 })
